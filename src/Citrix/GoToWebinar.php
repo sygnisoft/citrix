@@ -122,6 +122,20 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
 
 		return $this->getResponse();
 	}
+
+  /**
+   * Cancel webinar
+   */
+  public function cancelWebinar($webinarKey) {
+    $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey;
+    // print_r($params);
+    $this->setHttpMethod('DELETE')
+        ->setUrl($url)
+        ->sendRequest($this->getClient()->getAccessToken());
+    //->processResponse();
+
+    return $this->getResponse();
+  }
 	
   /**
    * Get all registrants for a given webinar.
@@ -211,6 +225,49 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
     return $this;
   }
   
+  /**
+   * Get all sessions for a given webinar.
+   * 
+   * @param int $webinarKey
+   * @return \Citrix\Entity\Consumer
+   */
+  public function getSessions($webinarKey){
+    
+     $params = array(
+      'fromTime' => '2017-01-13T10:00:00Z',
+      'toTime' => '2017-02-13T10:00:00Z',
+    );
+
+    $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey . '/sessions';
+    $this->setHttpMethod('GET')
+         ->setUrl($url)
+         ->setParams($params)
+         ->sendRequest($this->getClient()->getAccessToken())
+         ->processResponse(true);
+
+    return $this->getResponse();
+  }
+
+
+
+
+  /**
+   * Get all polls for a given webinar.
+   * 
+   * @param int $webinarKey
+   * @return \Citrix\Entity\Consumer
+   */
+  public function getPolls($webinarKey, $sessionKey){
+    
+    $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey . '/sessions/' . $sessionKey . '/polls';
+    $this->setHttpMethod('GET')
+         ->setUrl($url)
+         ->sendRequest($this->getClient()->getAccessToken())
+         ->processResponse(true);
+
+    return $this->getResponse();
+  }
+
   /**
    *
    * @return the $client
