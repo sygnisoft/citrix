@@ -201,8 +201,8 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
     $this->setHttpMethod('POST')
         ->setUrl($url)
         ->setParams($registrantData)
-        ->sendRequest($this->getClient()->getAccessToken())
-        ->processResponse(true);
+        ->sendRequest($this->getClient()->getAccessToken());
+        //->processResponse(true);
 
     return $this->getResponse();
   }
@@ -220,9 +220,9 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
     $this->setHttpMethod('DELETE')
         ->setUrl($url)
         ->sendRequest($this->getClient()->getAccessToken())
-        ->processResponse();
+	->processResponse();
 
-    return $this;
+    return $this->getResponse();
   }
   
   /**
@@ -267,6 +267,25 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
 
     return $this->getResponse();
   }
+
+
+/**
+   * Get info for a single webinar by passing the webinar id or 
+   * in Citrix's terms webinarKey.
+   * 
+   * @param int $webinarKey
+   * @return \Citrix\Entity\Webinar
+   */
+  public function getCoorganizers($webinarKey){
+    $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey.'/coorganizers';
+    $this->setHttpMethod('GET')
+         ->setUrl($url)
+         ->sendRequest($this->getClient()->getAccessToken())
+         ->processResponse(true);
+
+    return $this->getResponse();
+  }
+
 
   /**
    *
