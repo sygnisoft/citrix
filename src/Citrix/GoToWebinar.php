@@ -220,7 +220,7 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
     $this->setHttpMethod('DELETE')
         ->setUrl($url)
         ->sendRequest($this->getClient()->getAccessToken())
-	->processResponse();
+        ->processResponse();
 
     return $this->getResponse();
   }
