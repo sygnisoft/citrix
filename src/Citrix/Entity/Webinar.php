@@ -11,7 +11,7 @@ use Citrix\GoToWebinar;
  *
  * @uses \Citrix\Entity\EntityAbstract
  * @uses \Citrix\Entity\EntityAware
- *      
+ *
  */
 class Webinar extends EntityAbstract implements EntityAware
 {
@@ -26,104 +26,104 @@ class Webinar extends EntityAbstract implements EntityAware
 
   /**
    * Title/Subject of the webinar
-   * 
+   *
    * @var String
    */
   public $subject;
 
   /**
    * Description of the webinar
-   * 
+   *
    * @var String
    */
   public $description;
 
   /**
    * Organizer Key, big integer
-   * 
+   *
    * @var int
    */
   public $organizerKey;
 
   /**
    * Times when the webinar will be held
-   * 
+   *
    * @var Array
    */
   public $times = array();
 
   /**
    * Timezone
-   * 
+   *
    * @var String
    */
   public $timeZone = 'America/New_York';
 
   /**
    * Registration/Join URL
-   * 
+   *
    * @var String
    */
   public $registrationUrl;
   /**
    * List of registrants/attendees for that webinar.
-   * 
+   *
    * @var \ArrayObject
    */
   public $consumers;
 
   /**
    * Beging here by injecting an authentication object.
-   * 
+   *
    * @param $client
    */
   public function __construct($client)
   {
-    $this->setClient($client);
-    $this->consumers = new \ArrayObject();
+      $this->setClient($client);
+      $this->consumers = new \ArrayObject();
   }
   /*
    * (non-PHPdoc) @see \Citrix\Entity\EntityAware::populate()
    */
   public function populate()
   {
-    $data = $this->getData();
+      $data = $this->getData();
     
-    $this->id = (string) $data['webinarKey'];
-    $this->subject = $data['subject'];
-    $this->description = $data['description'];
-    $this->organizerKey = $data['organizerKey'];
-    $this->times = $data['times'];
-    $this->timeZone = $data['timeZone'];
-    $this->registrationUrl = isset($data['registrationUrl']) ? $data['registrationUrl'] : null;
-    return $this;
+      $this->id = (string) $data['webinarKey'];
+      $this->subject = $data['subject'];
+      $this->description = $data['description'];
+      $this->organizerKey = $data['organizerKey'];
+      $this->times = $data['times'];
+      $this->timeZone = $data['timeZone'];
+      $this->registrationUrl = isset($data['registrationUrl']) ? $data['registrationUrl'] : null;
+      return $this;
   }
 
   /**
    * Get all people that registered for
    * this webinar.
-   * 
+   *
    * @return \ArrayObject
    */
   public function getRegistrants()
   {
-    $goToWebinar = new GoToWebinar($this->getClient());
-    $registrants = $goToWebinar->getRegistrants($this->getId());
-    return $registrants;
+      $goToWebinar = new GoToWebinar($this->getClient());
+      $registrants = $goToWebinar->getRegistrants($this->getId());
+      return $registrants;
   }
 
   /**
    * Register consumer for a webinar
-   * 
+   *
    * @param \Citrix\Entity\Consumer $consumer
    * @return \Citrix\GoToWebinar
    */
   public function registerConsumer(\Citrix\Entity\Consumer $consumer)
   {
-    $goToWebinar = new GoToWebinar($this->getClient());
-    $goToWebinar->register($this->getId(), $consumer->toArray());
+      $goToWebinar = new GoToWebinar($this->getClient());
+      $goToWebinar->register($this->getId(), $consumer->toArray());
     
-    return $goToWebinar;
+      return $goToWebinar;
   }
 
   /**
@@ -132,18 +132,18 @@ class Webinar extends EntityAbstract implements EntityAware
    */
   public function getDescription()
   {
-    return $this->description;
+      return $this->description;
   }
 
   /**
    *
-   * @param String $description          
+   * @param String $description
    */
   public function setDescription($description)
   {
-    $this->description = $description;
+      $this->description = $description;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -152,18 +152,18 @@ class Webinar extends EntityAbstract implements EntityAware
    */
   public function getId()
   {
-    return $this->id;
+      return $this->id;
   }
 
   /**
    *
-   * @param int $id          
+   * @param int $id
    */
   public function setId($id)
   {
-    $this->id = $id;
+      $this->id = $id;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -172,18 +172,18 @@ class Webinar extends EntityAbstract implements EntityAware
    */
   public function getOrganizerKey()
   {
-    return $this->organizerKey;
+      return $this->organizerKey;
   }
 
   /**
    *
-   * @param int $organizerKey          
+   * @param int $organizerKey
    */
   public function setOrganizerKey($organizerKey)
   {
-    $this->organizerKey = $organizerKey;
+      $this->organizerKey = $organizerKey;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -192,18 +192,18 @@ class Webinar extends EntityAbstract implements EntityAware
    */
   public function getSubject()
   {
-    return $this->subject;
+      return $this->subject;
   }
 
   /**
    *
-   * @param String $subject          
+   * @param String $subject
    */
   public function setSubject($subject)
   {
-    $this->subject = $subject;
+      $this->subject = $subject;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -212,18 +212,18 @@ class Webinar extends EntityAbstract implements EntityAware
    */
   public function getTimes()
   {
-    return $this->times;
+      return $this->times;
   }
 
   /**
    *
-   * @param Array $times          
+   * @param Array $times
    */
   public function setTimes($times)
   {
-    $this->times = $times;
+      $this->times = $times;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -232,18 +232,18 @@ class Webinar extends EntityAbstract implements EntityAware
    */
   public function getTimeZone()
   {
-    return $this->timeZone;
+      return $this->timeZone;
   }
 
   /**
    *
-   * @param string $timeZone          
+   * @param string $timeZone
    */
   public function setTimeZone($timeZone)
   {
-    $this->timeZone = $timeZone;
+      $this->timeZone = $timeZone;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -252,24 +252,24 @@ class Webinar extends EntityAbstract implements EntityAware
    */
   public function getConsumers()
   {
-    return $this->getRegistrants();
+      return $this->getRegistrants();
   }
 
   /**
    *
-   * @param \ArrayObject $consumers          
+   * @param \ArrayObject $consumers
    */
   public function setConsumers($consumers)
   {
-    $this->consumers = $consumers;
+      $this->consumers = $consumers;
     
-    return $this;
+      return $this;
   }
   /**
    * @return the $registrationUrl
    */
   public function getRegistrationUrl()
-    {
+  {
       return $this->registrationUrl;
   }
   
@@ -277,10 +277,9 @@ class Webinar extends EntityAbstract implements EntityAware
    * @param string $registrationUrl
    */
   public function setRegistrationUrl($registrationUrl)
-    {
+  {
       $this->registrationUrl = $registrationUrl;
       
       return $this;
   }
-
 }

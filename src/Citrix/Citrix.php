@@ -2,6 +2,7 @@
 namespace Citrix;
 
 use Citrix\Authentication\Direct as DirectAuthentication;
+
 /**
  * Citrix Direct Authentication
  *
@@ -9,5 +10,4 @@ use Citrix\Authentication\Direct as DirectAuthentication;
  */
 class Citrix extends DirectAuthentication
 {
-
 }

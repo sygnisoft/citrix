@@ -9,7 +9,7 @@ namespace Citrix\Entity;
  *
  * @uses \Citrix\Entity\EntityAbstract
  * @uses \Citrix\Entity\EntityAware
- *      
+ *
  */
 class Consumer extends EntityAbstract implements EntityAware
 {
@@ -17,56 +17,56 @@ class Consumer extends EntityAbstract implements EntityAware
   /**
    * Unique identifier, in Citrix World
    * this is called RegistrantKey or AtendeeKey
-   * 
+   *
    * @var integer
    */
   public $id;
 
   /**
    * First Name
-   * 
+   *
    * @var String
    */
   public $firstName;
 
   /**
    * Last Name
-   * 
+   *
    * @var String
    */
   public $lastName;
 
   /**
    * Email Address
-   * 
+   *
    * @var String
    */
   public $email;
 
   /**
    * Status of Consumer
-   * 
+   *
    * @var String
    */
   public $status;
 
   /**
    * Registration Date
-   * 
+   *
    * @var \DateTime
    */
   public $registrationDate;
 
   /**
    * Join U
-   * 
+   *
    * @var String
    */
   public $joinUrl;
 
   /**
    * Timezone
-   * 
+   *
    * @var String
    */
   public $timeZone = 'America/New_York';
@@ -78,7 +78,7 @@ class Consumer extends EntityAbstract implements EntityAware
    */
   public function __construct($client)
   {
-    $this->setClient($client);
+      $this->setClient($client);
   }
   
   /*
@@ -86,28 +86,28 @@ class Consumer extends EntityAbstract implements EntityAware
    */
   public function populate()
   {
-    $data = $this->getData();
+      $data = $this->getData();
     
-    $this->firstName = $data['firstName'];
-    $this->lastName = $data['lastName'];
-    $this->email = $data['email'];
+      $this->firstName = $data['firstName'];
+      $this->lastName = $data['lastName'];
+      $this->email = $data['email'];
     
-    if (isset($data['registrantKey'])) {
-      $this->id = $data['registrantKey'];
-    }
+      if (isset($data['registrantKey'])) {
+          $this->id = $data['registrantKey'];
+      }
     
-    if (isset($data['status'])) {
-      $this->status = $data['status'];
-    }
-    if (isset($data['registrationDate'])) {
-      $this->registrationDate = $data['registrationDate'];
-    }
-    if (isset($data['joinUrl'])) {
-      $this->joinUrl = $data['joinUrl'];
-    }
-    if (isset($data['timeZone'])) {
-      $this->timeZone = $data['timeZone'];
-    }
+      if (isset($data['status'])) {
+          $this->status = $data['status'];
+      }
+      if (isset($data['registrationDate'])) {
+          $this->registrationDate = $data['registrationDate'];
+      }
+      if (isset($data['joinUrl'])) {
+          $this->joinUrl = $data['joinUrl'];
+      }
+      if (isset($data['timeZone'])) {
+          $this->timeZone = $data['timeZone'];
+      }
   }
 
   /**
@@ -116,18 +116,18 @@ class Consumer extends EntityAbstract implements EntityAware
    */
   public function getEmail()
   {
-    return $this->email;
+      return $this->email;
   }
 
   /**
    *
-   * @param String $email          
+   * @param String $email
    */
   public function setEmail($email)
   {
-    $this->email = $email;
+      $this->email = $email;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -136,18 +136,18 @@ class Consumer extends EntityAbstract implements EntityAware
    */
   public function getFirstName()
   {
-    return $this->firstName;
+      return $this->firstName;
   }
 
   /**
    *
-   * @param String $firstName          
+   * @param String $firstName
    */
   public function setFirstName($firstName)
   {
-    $this->firstName = $firstName;
+      $this->firstName = $firstName;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -156,18 +156,18 @@ class Consumer extends EntityAbstract implements EntityAware
    */
   public function getId()
   {
-    return $this->id;
+      return $this->id;
   }
 
   /**
    *
-   * @param String $id          
+   * @param String $id
    */
   public function setId($id)
   {
-    $this->id = $id;
+      $this->id = $id;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -176,18 +176,18 @@ class Consumer extends EntityAbstract implements EntityAware
    */
   public function getJoinUrl()
   {
-    return $this->joinUrl;
+      return $this->joinUrl;
   }
 
   /**
    *
-   * @param String $joinUrl          
+   * @param String $joinUrl
    */
   public function setJoinUrl($joinUrl)
   {
-    $this->joinUrl = $joinUrl;
+      $this->joinUrl = $joinUrl;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -196,18 +196,18 @@ class Consumer extends EntityAbstract implements EntityAware
    */
   public function getLastName()
   {
-    return $this->lastName;
+      return $this->lastName;
   }
 
   /**
    *
-   * @param String $lastName          
+   * @param String $lastName
    */
   public function setLastName($lastName)
   {
-    $this->lastName = $lastName;
+      $this->lastName = $lastName;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -216,18 +216,18 @@ class Consumer extends EntityAbstract implements EntityAware
    */
   public function getRegistrationDate()
   {
-    return $this->registrationDate;
+      return $this->registrationDate;
   }
 
   /**
    *
-   * @param \DateTime $registrationDate          
+   * @param \DateTime $registrationDate
    */
   public function setRegistrationDate($registrationDate)
   {
-    $this->registrationDate = $registrationDate;
+      $this->registrationDate = $registrationDate;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -236,18 +236,18 @@ class Consumer extends EntityAbstract implements EntityAware
    */
   public function getStatus()
   {
-    return $this->status;
+      return $this->status;
   }
 
   /**
    *
-   * @param String $status          
+   * @param String $status
    */
   public function setStatus($status)
   {
-    $this->status = $status;
+      $this->status = $status;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -256,19 +256,17 @@ class Consumer extends EntityAbstract implements EntityAware
    */
   public function getTimeZone()
   {
-    return $this->timeZone;
+      return $this->timeZone;
   }
 
   /**
    *
-   * @param string $timeZone          
+   * @param string $timeZone
    */
   public function setTimeZone($timeZone)
   {
-    $this->timeZone = $timeZone;
+      $this->timeZone = $timeZone;
     
-    return $this;
+      return $this;
   }
 }
-
-?>

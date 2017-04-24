@@ -54,7 +54,7 @@ class Direct extends ServiceAbstract implements CitrixApiAware
    */
   public function __construct($apiKey = null)
   {
-    $this->setApiKey($apiKey);
+      $this->setApiKey($apiKey);
   }
 
   /**
@@ -68,31 +68,30 @@ class Direct extends ServiceAbstract implements CitrixApiAware
    */
   public function auth($username, $password)
   {
+      if (is_null($this->getApiKey())) {
+          $this->addError('Direct Authentication requires API key. Please provide API key.');
+          return $this;
+      }
 
-    if(is_null($this->getApiKey())){
-      $this->addError('Direct Authentication requires API key. Please provide API key.');
-      return $this;
-    }
+      if (is_null($username) || is_null($password)) {
+          $this->addError('Direct Authentication requires username and password. Please provide username and password.');
+          return $this;
+      }
 
-    if(is_null($username) || is_null($password)){
-      $this->addError('Direct Authentication requires username and password. Please provide username and password.');
-      return $this;
-    }
-
-    $params = array(
+      $params = array(
       'grant_type' => 'password',
       'user_id' => $username,
       'password' => $password,
       'client_id' => $this->getApiKey()
     );
 
-    $this->setHttpMethod('GET')
+      $this->setHttpMethod('GET')
       ->setUrl($this->authorizeUrl)
       ->setParams($params)
       ->sendRequest()
       ->processResponse();
 
-    return $this;
+      return $this;
   }
 
   /**
@@ -101,7 +100,7 @@ class Direct extends ServiceAbstract implements CitrixApiAware
    */
   public function getApiKey()
   {
-    return $this->apiKey;
+      return $this->apiKey;
   }
 
   /**
@@ -110,9 +109,9 @@ class Direct extends ServiceAbstract implements CitrixApiAware
    */
   public function setApiKey($apiKey)
   {
-    $this->apiKey = $apiKey;
+      $this->apiKey = $apiKey;
 
-    return $this;
+      return $this;
   }
 
   /* (non-PHPdoc)
@@ -120,20 +119,20 @@ class Direct extends ServiceAbstract implements CitrixApiAware
    */
   public function processResponse()
   {
-    $response = $this->getResponse();
+      $response = $this->getResponse();
 
-    if (empty($response)) {
+      if (empty($response)) {
+          return $this;
+      }
+
+      if (isset($response['int_err_code'])) {
+          $this->addError($response['msg']);
+          return $this;
+      }
+
+      $this->setAccessToken($response['access_token']);
+      $this->setOrganizerKey($response['organizer_key']);
       return $this;
-    }
-
-    if (isset($response['int_err_code'])) {
-      $this->addError($response['msg']);
-      return $this;
-    }
-
-    $this->setAccessToken($response['access_token']);
-    $this->setOrganizerKey($response['organizer_key']);
-    return $this;
   }
 
   /**
@@ -142,7 +141,7 @@ class Direct extends ServiceAbstract implements CitrixApiAware
    */
   public function getAccessToken()
   {
-    return $this->accessToken;
+      return $this->accessToken;
   }
 
   /**
@@ -151,9 +150,9 @@ class Direct extends ServiceAbstract implements CitrixApiAware
    */
   public function setAccessToken($accessToken)
   {
-    $this->accessToken = $accessToken;
+      $this->accessToken = $accessToken;
 
-    return $this;
+      return $this;
   }
 
   /**
@@ -162,7 +161,7 @@ class Direct extends ServiceAbstract implements CitrixApiAware
    */
   public function getAuthorizeUrl()
   {
-    return $this->authorizeUrl;
+      return $this->authorizeUrl;
   }
 
   /**
@@ -171,9 +170,9 @@ class Direct extends ServiceAbstract implements CitrixApiAware
    */
   public function setAuthorizeUrl($authorizeUrl)
   {
-    $this->authorizeUrl = $authorizeUrl;
+      $this->authorizeUrl = $authorizeUrl;
 
-    return $this;
+      return $this;
   }
 
   /**
@@ -182,7 +181,7 @@ class Direct extends ServiceAbstract implements CitrixApiAware
    */
   public function getOrganizerKey()
   {
-    return $this->organizerKey;
+      return $this->organizerKey;
   }
 
   /**
@@ -191,8 +190,8 @@ class Direct extends ServiceAbstract implements CitrixApiAware
    */
   public function setOrganizerKey($organizerKey)
   {
-    $this->organizerKey = $organizerKey;
+      $this->organizerKey = $organizerKey;
 
-    return $this;
+      return $this;
   }
 }

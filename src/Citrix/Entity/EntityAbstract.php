@@ -10,7 +10,7 @@ abstract class EntityAbstract
 {
 
   /**
-   * Instance of \Citrix\Citrix 
+   * Instance of \Citrix\Citrix
    * @var \Citrix\Citrix
    */
   protected $client;
@@ -28,7 +28,7 @@ abstract class EntityAbstract
    */
   protected function getClient()
   {
-    return $this->client;
+      return $this->client;
   }
 
   /**
@@ -37,9 +37,9 @@ abstract class EntityAbstract
    */
   protected function setClient($client)
   {
-    $this->client = $client;
+      $this->client = $client;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -48,40 +48,40 @@ abstract class EntityAbstract
    */
   public function getData()
   {
-    return $this->data;
+      return $this->data;
   }
 
   /**
    *
-   * @param array $data          
+   * @param array $data
    */
   public function setData($data)
   {
-    $this->data = $data;
+      $this->data = $data;
     
-    return $this;
+      return $this;
   }
 
   /**
    * Converts class variables to array
-   * 
+   *
    * @return array
    */
   public function toArray()
   {
-    //list of variables to be skipped
+      //list of variables to be skipped
     $toUnset = array(
       'client',
       'data'
     );
-    $toArray = get_object_vars($this);
+      $toArray = get_object_vars($this);
     
-    foreach ($toUnset as $value) {
-      if (isset($toArray[$value])) {
-        unset($toArray[$value]);
+      foreach ($toUnset as $value) {
+          if (isset($toArray[$value])) {
+              unset($toArray[$value]);
+          }
       }
-    }
     
-    return $toArray;
+      return $toArray;
   }
 }

@@ -3,8 +3,8 @@ namespace Citrix;
 
 interface CitrixApiAware
 {
-  /**
-   * Each class that makes calls to 
+    /**
+   * Each class that makes calls to
    * Citrix API should define how to process
    * the response.
    */

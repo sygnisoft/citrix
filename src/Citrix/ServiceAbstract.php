@@ -13,7 +13,7 @@ abstract class ServiceAbstract
 
   /**
    * List of errors that have occured
-   * 
+   *
    * @var array
    */
   private $errors = array();
@@ -28,65 +28,65 @@ abstract class ServiceAbstract
 
   /**
    * URL to be called
-   * 
+   *
    * @var string
    */
   private $url;
 
   /**
    * Response from Citrix API call
-   * 
+   *
    * @var array
    */
   private $response;
 
   /**
    * HTTP METHOD used - POST | GET
-   * 
+   *
    * @var String
    */
   private $httpMethod = 'POST';
 
   /**
    * Send API request, but pass the $oauthToken first.
-   * 
+   *
    * @see \Citrix\Citrix
    *
-   * @param string $oauthToken          
+   * @param string $oauthToken
    * @return \Citrix\ServiceAbstract
    */
   public function sendRequest($oauthToken = null)
   {
-    $url = $this->getUrl();
-    $ch = curl_init(); // initiate curl
+      $url = $this->getUrl();
+      $ch = curl_init(); // initiate curl
     
     if ($this->getHttpMethod() == 'POST') {
-      curl_setopt($ch, CURLOPT_POST, true); // tell curl you want to post something
+        curl_setopt($ch, CURLOPT_POST, true); // tell curl you want to post something
       curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->getParams())); // define what you want to post
-    } else if($this->getHttpMethod() != 'POST' && $this->getHttpMethod() != 'GET') {
-      curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->getHttpMethod());
+    } elseif ($this->getHttpMethod() != 'POST' && $this->getHttpMethod() != 'GET') {
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->getHttpMethod());
     } else {
-      $url = $this->getUrl();
-      $query = http_build_query($this->getParams());
-      $url = $url . '?' . $query;
+        $url = $this->getUrl();
+        $query = http_build_query($this->getParams());
+        $url = $url . '?' . $query;
     }
     
-    if (! is_null($oauthToken)) {
-      $headers = array(
+      if (! is_null($oauthToken)) {
+          $headers = array(
         'Content-Type: application/json',
         'Accept: application/json',
         'Authorization: OAuth oauth_token=' . $oauthToken
       );
-      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    }
+          curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+      }
     
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // return the output in string format
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // return the output in string format
     $output = curl_exec($ch); // execute
     curl_close($ch); // close curl handle
 
     $this->setResponse($output);
-    return $this;
+      return $this;
   }
 
   /**
@@ -96,7 +96,7 @@ abstract class ServiceAbstract
    */
   public function hasErrors()
   {
-    return empty($this->errors) ? false : true;
+      return empty($this->errors) ? false : true;
   }
 
   /**
@@ -106,21 +106,21 @@ abstract class ServiceAbstract
    */
   public function getError()
   {
-    $error = $this->errors;
-    $this->reset();
-    return empty($error) ? false : reset($error);
+      $error = $this->errors;
+      $this->reset();
+      return empty($error) ? false : reset($error);
   }
 
   /**
    * Get all errors
-   * 
+   *
    * @return array
    */
   public function getErrors()
   {
-    $error = $this->errors;
-    $this->reset();
-    return $error;
+      $error = $this->errors;
+      $this->reset();
+      return $error;
   }
 
   /**
@@ -131,9 +131,9 @@ abstract class ServiceAbstract
    */
   public function addError($message)
   {
-    $this->errors[] = $message;
+      $this->errors[] = $message;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -143,9 +143,9 @@ abstract class ServiceAbstract
    */
   public function reset()
   {
-    $this->errors = array();
+      $this->errors = array();
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -154,7 +154,7 @@ abstract class ServiceAbstract
    */
   public function getParams()
   {
-    return $this->params;
+      return $this->params;
   }
 
   /**
@@ -164,9 +164,9 @@ abstract class ServiceAbstract
    */
   public function setParams($params)
   {
-    $this->params = $params;
+      $this->params = $params;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -178,9 +178,9 @@ abstract class ServiceAbstract
    */
   public function addParam($key, $value)
   {
-    $this->params[$key] = $value;
+      $this->params[$key] = $value;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -189,7 +189,7 @@ abstract class ServiceAbstract
    */
   public function getUrl()
   {
-    return $this->url;
+      return $this->url;
   }
 
   /**
@@ -199,9 +199,9 @@ abstract class ServiceAbstract
    */
   public function setUrl($url)
   {
-    $this->url = $url;
+      $this->url = $url;
     
-    return $this;
+      return $this;
   }
 
   /**
@@ -210,7 +210,7 @@ abstract class ServiceAbstract
    */
   public function getResponse()
   {
-    return $this->response;
+      return $this->response;
   }
 
   /**
@@ -220,14 +220,13 @@ abstract class ServiceAbstract
    */
   public function setResponse($response)
   {
-    if (is_object($response)) {
-      $this->response = $response;
-      return $this;
-    }
+      if (is_object($response)) {
+          $this->response = $response;
+          return $this;
+      }
 
-    $this->response = (array) json_decode($response, true, 512);
-    return $this;
-    
+      $this->response = (array) json_decode($response, true, 512);
+      return $this;
   }
 
   /**
@@ -236,20 +235,20 @@ abstract class ServiceAbstract
    */
   public function getHttpMethod()
   {
-    return $this->httpMethod;
+      return $this->httpMethod;
   }
 
   /**
    * Set the HttpMethod
-   * 
+   *
    * @param string $httpMethod
    *          - GET | POST
    * @return \Citrix\ServiceAbstract
    */
   public function setHttpMethod($httpMethod)
   {
-    $this->httpMethod = $httpMethod;
+      $this->httpMethod = $httpMethod;
     
-    return $this;
+      return $this;
   }
 }
