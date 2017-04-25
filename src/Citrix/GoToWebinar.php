@@ -286,6 +286,57 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
         return $this->getResponse();
     }
 
+    /**
+   * Get all surveys for a given webinar.
+   *
+   * @param int $webinarKey
+   * @return \Citrix\Entity\Consumer
+   */
+    public function getSurveys($webinarKey, $sessionKey)
+    {
+        $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey . '/sessions/' . $sessionKey . '/surveys';
+        $this->setHttpMethod('GET')
+         ->setUrl($url)
+         ->sendRequest($this->getClient()->getAccessToken())
+         ->processResponse(true);
+
+        return $this->getResponse();
+    }
+
+  /**
+   * Get all questions for a given webinar.
+   *
+   * @param int $webinarKey
+   * @return \Citrix\Entity\Consumer
+   */
+    public function getQuestions($webinarKey, $sessionKey)
+    {
+        $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey . '/sessions/' . $sessionKey . '/questions';
+        $this->setHttpMethod('GET')
+         ->setUrl($url)
+         ->sendRequest($this->getClient()->getAccessToken())
+         ->processResponse(true);
+
+        return $this->getResponse();
+    }
+
+  /**
+   * Get performance for a given webinar.
+   *
+   * @param int $webinarKey
+   * @return \Citrix\Entity\Consumer
+   */
+    public function getPerformance($webinarKey, $sessionKey)
+    {
+        $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey . '/sessions/' . $sessionKey . '/performance';
+        $this->setHttpMethod('GET')
+         ->setUrl($url)
+         ->sendRequest($this->getClient()->getAccessToken())
+         ->processResponse(true);
+
+        return $this->getResponse();
+    }
+
 
   /**
    * Get info for a single webinar by passing the webinar id or
