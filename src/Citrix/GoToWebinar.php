@@ -176,6 +176,7 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
 
       return $this->getResponse();
   }
+  
   /**
    * Get all attendees for a given webinar.
    *
@@ -189,6 +190,41 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
         ->setUrl($url)
         ->sendRequest($this->getClient()->getAccessToken())
         ->processResponse();
+
+      return $this->getResponse();
+  }
+
+  /**
+   * Get single attendee.
+   *
+   * @param int $webinarKey
+   * @param int $attendeeKey
+   * @return \Citrix\Entity\Consumer
+   */
+  public function getAttendee($webinarKey, $sessionKey, $attendeeKey)
+  {
+      $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey . 'session/' . $sessionKey . '/attendees/' . $attendeeKey;
+      $this->setHttpMethod('GET')
+        ->setUrl($url)
+        ->sendRequest($this->getClient()->getAccessToken())
+        ->processResponse();
+
+      return $this->getResponse();
+  }
+
+  /**
+   * Get all panelists for a given webinar.
+   *
+   * @param int $webinarKey
+   * @return \Citrix\Entity\Consumer
+   */
+  public function getPanelists($webinarKey)
+  {
+      $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey . '/panelists';
+      $this->setHttpMethod('GET')
+        ->setUrl($url)
+        ->sendRequest($this->getClient()->getAccessToken())
+        ->processResponse(true);
 
       return $this->getResponse();
   }
@@ -247,6 +283,22 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
   }
 
   /**
+   * Gets performance details for all sessions of a specific webinar.
+   *
+   * @param int $webinarKey
+   */
+  public function getPerformances($webinarKey)
+  {
+      $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey . '/performance';
+      $this->setHttpMethod('GET')
+        ->setUrl($url)
+        ->sendRequest($this->getClient()->getAccessToken())
+        ->processResponse(true);
+
+      return $this->getResponse();
+  }
+
+  /**
    * Get all sessions for a given webinar.
    *
    * @param int $webinarKey
@@ -268,6 +320,24 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
 
       return $this->getResponse();
   }
+
+  /**
+   * Get sessnio performance for a given webinar.
+   *
+   * @param int $webinarKey
+   * @param int $sessionKey
+   * @return \Citrix\Entity\Consumer
+   */
+    public function getSessionPerformance($webinarKey, $sessionKey)
+    {
+        $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey . '/sessions/' . $sessionKey . '/performance';
+        $this->setHttpMethod('GET')
+         ->setUrl($url)
+         ->sendRequest($this->getClient()->getAccessToken())
+         ->processResponse(true);
+
+        return $this->getResponse();
+    }
 
   /**
    * Get all polls for a given webinar.
