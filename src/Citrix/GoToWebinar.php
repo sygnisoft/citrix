@@ -112,20 +112,19 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
       return $this->getResponse();
   }
   /**
-     * ADDED by jwilson on 2015-12-01
-     */
-    public function createWebinar($params)
-    {
-        $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars';
-        // print_r($params);
-        $this->setHttpMethod('POST')
-                ->setUrl($url)
-                ->setParams($params)
-                ->sendRequest($this->getClient()->getAccessToken());
-        //->processResponse();
-
+   * ADDED by jwilson on 2015-12-01
+   */
+  public function createWebinar($params)
+  {
+      $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars';
+      // print_r($params);
+      $this->setHttpMethod('POST')
+          ->setUrl($url)
+          ->setParams($params)
+          ->sendRequest($this->getClient()->getAccessToken());
+          //->processResponse();
         return $this->getResponse();
-    }
+  }
 
   /**
    * Cancel webinar
@@ -133,13 +132,10 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
   public function cancelWebinar($webinarKey)
   {
       $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey;
-    // print_r($params);
-    $this->setHttpMethod('DELETE')
+      $this->setHttpMethod('DELETE')
         ->setUrl($url)
         ->sendRequest($this->getClient()->getAccessToken());
-    //->processResponse();
-
-    return $this->getResponse();
+      return $this->getResponse();
   }
     
   /**
@@ -282,6 +278,44 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
 
       return $this->getResponse();
   }
+
+  /**
+   * Create panelist
+   */
+  public function createPanelist($webinarKey, $params)
+  {
+      $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey . '/panelists';
+      // print_r($params);
+      $this->setHttpMethod('POST')
+          ->setUrl($url)
+          ->setParams($params)
+          ->sendRequest($this->getClient()->getAccessToken());
+        return $this->getResponse();
+  }
+
+  /**
+   * Resend panelist invitation
+   */
+  public function resendPanelistInvitation($webinarKey, $panelistKey)
+  {
+      $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey . '/panelists/' . $panelistKey . '/resendInvitation';
+      $this->setHttpMethod('POST')
+          ->setUrl($url)
+          ->sendRequest($this->getClient()->getAccessToken());
+        return $this->getResponse();
+  }
+
+  /**
+   * Delete panelist
+   */
+  public function deletePanelist($webinarKey, $panelistKey)
+  {
+      $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey . '/panelists/' . $panelistKey;
+      $this->setHttpMethod('DELETE')
+        ->setUrl($url)
+        ->sendRequest($this->getClient()->getAccessToken());
+      return $this->getResponse();
+  }
   
   /**
    * Register user for a webinar
@@ -315,7 +349,7 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
       $this->setHttpMethod('DELETE')
         ->setUrl($url)
         ->sendRequest($this->getClient()->getAccessToken())
-    ->processResponse();
+        ->processResponse();
 
       return $this->getResponse();
   }
@@ -495,6 +529,43 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
          ->sendRequest($this->getClient()->getAccessToken())
          ->processResponse(true);
 
+      return $this->getResponse();
+  }
+
+  /**
+   * Create co-organizer
+   */
+  public function createCoorganizer($webinarKey, $params)
+  {
+      $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey . '/coorganizers';
+      $this->setHttpMethod('POST')
+          ->setUrl($url)
+          ->setParams($params)
+          ->sendRequest($this->getClient()->getAccessToken());
+        return $this->getResponse();
+  }
+
+  /**
+   * Resend coorganizer invitation
+   */
+  public function resendCoorganizerInvitation($webinarKey, $coorganizerKey)
+  {
+      $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey . '/coorganizers/' . $coorganizerKey . '/resendInvitation';
+      $this->setHttpMethod('POST')
+          ->setUrl($url)
+          ->sendRequest($this->getClient()->getAccessToken());
+        return $this->getResponse();
+  }
+
+  /**
+   * Delete coorganizer
+   */
+  public function deleteCoorganizer($webinarKey, $coorganizerKey)
+  {
+      $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey . '/coorganizers/' . $coorganizerKey;
+      $this->setHttpMethod('DELETE')
+        ->setUrl($url)
+        ->sendRequest($this->getClient()->getAccessToken());
       return $this->getResponse();
   }
 
