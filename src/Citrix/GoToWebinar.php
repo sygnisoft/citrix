@@ -108,7 +108,6 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
          ->setUrl($url)
          ->sendRequest($this->getClient()->getAccessToken())
          ->processResponse(true);
-
       return $this->getResponse();
   }
   /**
@@ -117,13 +116,24 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
   public function createWebinar($params)
   {
       $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars';
-      // print_r($params);
       $this->setHttpMethod('POST')
           ->setUrl($url)
           ->setParams($params)
           ->sendRequest($this->getClient()->getAccessToken());
-          //->processResponse();
-        return $this->getResponse();
+      return $this->getResponse();
+  }
+
+  /**
+   * Update webinar
+   */
+  public function updateWebinar($webinarKey, $params)
+  {
+      $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/webinars/' . $webinarKey;
+      $this->setHttpMethod('POST')
+          ->setUrl($url)
+          ->setParams($params)
+          ->sendRequest($this->getClient()->getAccessToken());
+      return $this->getResponse();
   }
 
   /**
