@@ -60,32 +60,37 @@ abstract class ServiceAbstract
       $url = $this->getUrl();
       $ch = curl_init(); // initiate curl
     
-    if ($this->getHttpMethod() == 'POST') {
+      if ($this->getHttpMethod() == 'POST') {
         curl_setopt($ch, CURLOPT_POST, true); // tell curl you want to post something
-      curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->getParams())); // define what you want to post
-    } elseif ($this->getHttpMethod() != 'POST' && $this->getHttpMethod() != 'GET') {
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->getParams())); // define what you want to post
+      } 
+      elseif ($this->getHttpMethod() == 'PUT') {
+        curl_setopt($ch, CURLOPT_POST, true); // tell curl you want to put something
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->getParams())); // define what you want to put
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+      }
+      elseif ($this->getHttpMethod() != 'POST' && $this->getHttpMethod() != 'GET' && $this->getHttpMethod() != 'PUT') {
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $this->getHttpMethod());
-    } else {
+      } else {
         $url = $this->getUrl();
         $query = http_build_query($this->getParams());
         $url = $url . '?' . $query;
-    }
-    
-      if (! is_null($oauthToken)) {
-          $headers = array(
-        'Content-Type: application/json',
-        'Accept: application/json',
-        'Authorization: OAuth oauth_token=' . $oauthToken
-      );
-          curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
       }
-    
+
+      if (! is_null($oauthToken)) {
+        $headers = array(
+          'Content-Type: application/json',
+          'Accept: application/json',
+          'Authorization: OAuth oauth_token=' . $oauthToken
+        );
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+      } 
       curl_setopt($ch, CURLOPT_URL, $url);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // return the output in string format
-    $output = curl_exec($ch); // execute
-    curl_close($ch); // close curl handle
+      $output = curl_exec($ch); // execute
+      curl_close($ch); // close curl handle
 
-    $this->setResponse($output);
+      $this->setResponse($output);
       return $this;
   }
 
