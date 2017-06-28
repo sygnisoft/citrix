@@ -72,6 +72,26 @@ class Consumer extends EntityAbstract implements EntityAware
   public $timeZone = 'America/New_York';
 
   /**
+   * SessionKey
+   *
+   * @var String
+   */
+  public $sessionKey;
+  
+  /**
+   * AttendanceTimeInSeconds
+   *
+   * @var String
+   */
+  public $attendanceTimeInSeconds;
+
+  /**
+   * Attendance
+   *
+   * @var Array
+   */
+  public $attendance;
+  /**
    * Begin here by injecting authentication object.
    *
    * @param $client
@@ -87,7 +107,7 @@ class Consumer extends EntityAbstract implements EntityAware
   public function populate()
   {
       $data = $this->getData();
-    
+
       $this->firstName = $data['firstName'];
       $this->lastName = $data['lastName'];
       $this->email = $data['email'];
@@ -95,7 +115,6 @@ class Consumer extends EntityAbstract implements EntityAware
       if (isset($data['registrantKey'])) {
           $this->id = $data['registrantKey'];
       }
-    
       if (isset($data['status'])) {
           $this->status = $data['status'];
       }
@@ -107,6 +126,15 @@ class Consumer extends EntityAbstract implements EntityAware
       }
       if (isset($data['timeZone'])) {
           $this->timeZone = $data['timeZone'];
+      }
+      if (isset($data['sessionKey'])) {
+          $this->sessionKey = $data['sessionKey']; 
+      }
+      if (isset($data['attendanceTimeInSeconds'])) {
+          $this->attendanceTimeInSeconds = $data['attendanceTimeInSeconds'];
+      }
+      if (isset($data['attendance'])) {
+          $this->attendance = $data['attendance']; 
       }
   }
 
@@ -269,4 +297,25 @@ class Consumer extends EntityAbstract implements EntityAware
     
       return $this;
   }
+
+  /**
+   *
+   * @return the $sessionKey
+   */
+  public function getSessionKey()
+  {
+      return $this->sessionKey;
+  }
+
+  /**
+   *
+   * @param String $firstName
+   */
+  public function setsessionKey($sessionKey)
+  {
+      $this->sessionKey = $sessionKey;
+    
+      return $this;
+  }
+
 }

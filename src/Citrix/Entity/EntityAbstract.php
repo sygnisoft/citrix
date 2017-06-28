@@ -69,19 +69,23 @@ abstract class EntityAbstract
    */
   public function toArray()
   {
-      //list of variables to be skipped
+    //list of variables to be skipped
     $toUnset = array(
       'client',
       'data'
     );
-      $toArray = get_object_vars($this);
+
+    //$toUnset = array(
+    //  'client'
+    //);
     
-      foreach ($toUnset as $value) {
-          if (isset($toArray[$value])) {
-              unset($toArray[$value]);
-          }
+    $toArray = get_object_vars($this);
+    
+    foreach ($toUnset as $value) {
+      if (isset($toArray[$value])) {
+        unset($toArray[$value]);
       }
-    
-      return $toArray;
+    }
+    return $toArray;
   }
 }
