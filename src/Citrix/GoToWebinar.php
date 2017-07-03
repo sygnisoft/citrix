@@ -69,9 +69,9 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
    * @deprecated - Use GoToWebinar::getPast() instead2
    * @return \ArrayObject - Processed response
    */
-  public function getPastWebinars()
+  public function getPastWebinars($since,$until)
   {
-      return $this->getPast();
+      return $this->getPast($since,$until);
   }
 
   /**
@@ -79,12 +79,9 @@ class GoToWebinar extends ServiceAbstract implements CitrixApiAware
    * @todo - add date range
    * @return \ArrayObject - Processed response
    */
-  public function getPast()
+  public function getPast($since,$until)
   {
-      $since = date(DATE_ISO8601, mktime(0, 0, 0, 7, 1, 2000));
-      $until = date(DATE_ISO8601);
       $url = 'https://api.citrixonline.com/G2W/rest/organizers/' . $this->getClient()->getOrganizerKey() . '/historicalWebinars';
-
       $this->setHttpMethod('GET')
         ->setParams(array('fromTime' => $since, 'toTime' => $until))
          ->setUrl($url)
